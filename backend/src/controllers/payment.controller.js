@@ -125,3 +125,17 @@ export async function getPayment(req, res) {
 
   return res.status(200).json(payment);
 }
+
+export async function listPayments(req, res) {
+  const payments = await prisma.payment.findMany({
+    where: {
+      merchant_id: req.merchant.id,
+    },
+    orderBy: {
+      created_at: "desc",
+    },
+  });
+
+  return res.status(200).json(payments);
+}
+
