@@ -1,0 +1,163 @@
+{
+  "info": {
+    "name": "Payment Gateway API",
+    "_postman_id": "b1c2d3e4-0000-0000-0000-123456789abc",
+    "description": "Postman collection for Payment Gateway APIs (Orders, Payments, Public Checkout, Test endpoints)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Api-Key",
+            "value": "key_test_abc123"
+          },
+          {
+            "key": "X-Api-Secret",
+            "value": "secret_test_xyz789"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/api/v1/orders",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "orders"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 50000,\n  \"currency\": \"INR\",\n  \"receipt\": \"rcpt_001\",\n  \"notes\": {\n    \"purpose\": \"Test order\"\n  }\n}"
+        }
+      }
+    },
+    {
+      "name": "Create Payment (UPI)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Api-Key",
+            "value": "key_test_abc123"
+          },
+          {
+            "key": "X-Api-Secret",
+            "value": "secret_test_xyz789"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/api/v1/payments",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "payments"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"order_id\": \"{{order_id}}\",\n  \"method\": \"upi\",\n  \"vpa\": \"user@paytm\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Create Payment (Card)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Api-Key",
+            "value": "key_test_abc123"
+          },
+          {
+            "key": "X-Api-Secret",
+            "value": "secret_test_xyz789"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/api/v1/payments",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "payments"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"order_id\": \"{{order_id}}\",\n  \"method\": \"card\",\n  \"card\": {\n    \"number\": \"4111111111111111\",\n    \"expiry_month\": \"12\",\n    \"expiry_year\": \"2026\",\n    \"cvv\": \"123\",\n    \"holder_name\": \"John Doe\"\n  }\n}"
+        }
+      }
+    },
+    {
+      "name": "Get Payment (Public)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8000/api/v1/payments/{{payment_id}}/public",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "payments",
+            "{{payment_id}}",
+            "public"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Order (Public)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8000/api/v1/orders/{{order_id}}/public",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "{{order_id}}",
+            "public"
+          ]
+        }
+      }
+    }
+  ]
+}
